@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.3</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.khadim</groupId>
+	<artifactId>covoiturage</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>covoiturage</name>
+	<description>Gestion dune application de covoiturage</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.8</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<springmvc>true</springmvc>
+							<locations>
+								com.khadim.covoiturage.webService.impl
+							</locations>
+							<schemes>http,https</schemes>
+							<basePath>http://localhost:8080</basePath>
+							<info>
+								<title>Swagger API Documentation pour la Gestion des Covoiturages</title>
+								<version>0.0.1-SNAPSHOT</version>
+								<description>Ceci est une API swagger pour la Gestion des Covoiturages</description>
+							</info>
+							<outputPath>${project.build.directory}</outputPath>
+							<outputFormats>json</outputFormats>
+							<swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringApiReader</swaggerApiReader>
+							<swaggerDirectory>${project.build.directory}</swaggerDirectory>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-docs</id>
+						<phase>prepare-package</phase>
+
+						<configuration>
+							<backend>html</backend>
+							<doctype>book</doctype>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.restdocs</groupId>
+						<artifactId>spring-restdocs-asciidoctor</artifactId>
+						<version>2.0.6.RELEASE</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<finalName>service.covoiturage</finalName>
+	</build>
+
+</project>
