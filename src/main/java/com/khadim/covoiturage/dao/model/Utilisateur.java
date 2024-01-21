@@ -36,7 +36,7 @@ public class Utilisateur implements Serializable {
     @JoinColumn(name = "refCat")
     private CategoriePermis categoriePermis;
     @OneToMany
-    private List<Profil> profils = new ArrayList<>();
+    private List<Profil> profils =new ArrayList<>();
     @OneToMany
     private List<Reservation> reservations;
     @OneToMany
